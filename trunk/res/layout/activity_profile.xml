@@ -4,20 +4,31 @@
     android:layout_height="match_parent" >
 
     <TextView
+        android:id="@+id/wellcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:text="@string/home_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+    
+    <TextView
+        android:id="@+id/levelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
     <Button
+        android:id="@+id/adminButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:onClick="startApp"
-        android:text="@string/button_start" />
+        android:layout_marginTop="200dp"
+        android:onClick="startAdmin"
+        android:text="@string/button_admin"
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -3,10 +3,6 @@ package com.vkv.learnmaths;
 import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHttpResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +25,6 @@ public class LoginActivity extends Activity {
 
 	public final static String SESSIONKEY = "com.example.myfirstapp.SESSIONKEY";
 	private String sessionKeyRecieved = "";
-	private LoginActivity context = this;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +79,6 @@ public class LoginActivity extends Activity {
 		try {
 			model.put("username", username);
 			model.put("password", password);
-
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -94,8 +88,6 @@ public class LoginActivity extends Activity {
 		
 		new PostAsyncTask().execute(baseURL + "users/login", data);
 	}
-	
-	
 
 	public void registerUser(View view) throws ClientProtocolException, IOException{
 
@@ -111,7 +103,6 @@ public class LoginActivity extends Activity {
 			model.put("username", username);
 			model.put("name", name);
 			model.put("password", password);
-
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -126,27 +117,16 @@ public class LoginActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... args) {
-			String result = "";
+			String result = "";		
 			try {
-			DefaultHttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(args[0]);
-			
-			httppost.setHeader("Accept", "application/json");
-			httppost.setHeader("Content-type", "application/json");
-
-			StringEntity sendData = new StringEntity(args[1]);
-			sendData.setContentEncoding("UTF-8");
-			sendData.setContentType("application/json");
-			httppost.setEntity(sendData);
-
-			BasicHttpResponse httpResponse = (BasicHttpResponse) httpclient.execute(httppost);
-
-			result = TextHelper.GetText(httpResponse);
+				result = RequestHelper.PostData(args);
 			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}finally {}
+			}
 			
 			return result;
 		}
@@ -156,19 +136,14 @@ public class LoginActivity extends Activity {
 			JSONObject jsonObject;
 			try {
 				jsonObject = new JSONObject(result);
-
 				sessionKeyRecieved = jsonObject.getString("sessionKey");
-
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 			
-			Intent intent = new Intent(context, ProfileActivity.class);
-
+			Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
 			intent.putExtra(SESSIONKEY, sessionKeyRecieved);
-
 			startActivity(intent);
 		}
-
 	}
 }

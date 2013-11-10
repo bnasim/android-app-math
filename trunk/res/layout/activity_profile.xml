@@ -9,26 +9,65 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <TextView
         android:id="@+id/levelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="80dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <Button
-        android:id="@+id/adminButton"
+
+    <ScrollView
+        android:id="@+id/recordsScrollView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="120dp" >
+
+        <TableLayout
+            android:id="@+id/recordsTableLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </TableLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/logoutButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:onClick="startLogout"
+        android:text="@string/button_logout"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/nextCategoryButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/logoutButton"
+        android:layout_alignParentLeft="true"
+        android:onClick="startNextCategory"
+        android:text="@string/button_nextCategory"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/adminButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/logoutButton"
+        android:layout_alignParentRight="true"
         android:onClick="startAdmin"
         android:text="@string/button_admin"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 
 </RelativeLayout>

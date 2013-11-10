@@ -16,5 +16,14 @@
     <string name="button_login">Login</string>
     <string name="title_activity_profile">My Profile</string>
     <string name="button_admin">Admin Profile</string>
+    <string name="button_redo">Redo</string>
+    <string name="button_nextCategory">Next Category</string>
+    <string name="button_logout">Logout</string>
+    <string name="next_level_title">Congratulations!</string>
+    <string name="next_level_message">You finished all categories in this level. Got to the next!</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="title_activity_quest">Questions</string>
+    <string name="button_quit">Quit</string>
 
 </resources>

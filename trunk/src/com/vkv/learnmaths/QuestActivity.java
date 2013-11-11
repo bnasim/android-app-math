@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -21,7 +23,7 @@ import android.widget.TextView;
 
 public class QuestActivity extends Activity {
 	
-	public final static String QUESTSESSIONKEY = "com.example.myfirstapp.QUESTSESSIONKEY";
+	//public final static String QUESTSESSIONKEY = "com.example.myfirstapp.QUESTSESSIONKEY";
 	
 	static String baseURL = "http://learnmathsapp.apphb.com/api/";
 	static int answerScore = 20;
@@ -52,10 +54,11 @@ public class QuestActivity extends Activity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
             	RadioButton radioButton = (RadioButton) findViewById(checkedId);
             	String answerText = radioButton.getText().toString();
-            	if(answerText == correctAnswer) {
+            	if(answerText.equalsIgnoreCase(correctAnswer)) {
             		score += answerScore;
             	}
             	
+            	radioButton.setChecked(false);
             	currentQuestion++;
             	insertQuestion(currentQuestion);
             }
@@ -71,7 +74,7 @@ public class QuestActivity extends Activity {
         }
 
 		Intent intent = getIntent();
-		sessionKey = intent.getStringExtra(ProfileActivity.USERSESSIONKEY);
+		sessionKey = intent.getStringExtra(LoginActivity.SESSIONKEY);
 		recordId = intent.getStringExtra(ProfileActivity.RECORDID);
 		
 		new GetQuestionsAsyncTask().execute(baseURL + "questions/list/" + recordId, sessionKey);
@@ -183,9 +186,29 @@ public class QuestActivity extends Activity {
 		}
 		
 		protected void onPostExecute(String result){
-			Intent intent = new Intent(QuestActivity.this, ProfileActivity.class);
-			intent.putExtra(QUESTSESSIONKEY, sessionKey);
-			startActivity(intent);
+			String state = null;
+			JSONObject jsonObject;
+			try {
+				jsonObject = new JSONObject(result);
+				state = jsonObject.getString("state");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(QuestActivity.this);
+			builder.setTitle(state);
+			builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(QuestActivity.this, ProfileActivity.class);
+					intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
+					startActivity(intent);
+				}
+			});
+
+			builder.setMessage("You " + state + " this category");
+			AlertDialog theAlertDialog = builder.create();
+			theAlertDialog.show();
 		}
 
 	}

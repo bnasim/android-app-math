@@ -5,9 +5,8 @@
     
     <TextView
         android:id="@+id/categoryTextView"
-        android:layout_width="0dip"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textIsSelectable="true"/>
         
@@ -15,7 +14,6 @@
         android:id="@+id/coverLevelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <TextView
@@ -31,6 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_redo"
-        android:visibility="invisible" />
+        android:visibility="visible" />
     
 </TableRow>

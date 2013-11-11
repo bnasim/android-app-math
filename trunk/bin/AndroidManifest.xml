@@ -41,6 +41,10 @@
             android:name="com.vkv.learnmaths.QuestActivity"
             android:label="@string/title_activity_quest" >
         </activity>
+        <activity
+            android:name="com.vkv.learnmaths.AdminActivity"
+            android:label="@string/title_activity_admin" >
+        </activity>
     </application>
 
 </manifest>

@@ -44,7 +44,7 @@ public class RequestHelper {
 		return result;
 	  }
 	
-	public static void PutBySessionKey(String[] args) throws ClientProtocolException, IOException {
+	public static String PutBySessionKey(String[] args) throws ClientProtocolException, IOException {
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(args[0]);
 		
@@ -53,6 +53,8 @@ public class RequestHelper {
 		httppost.setHeader("X-sessionKey", args[1]);
 
 		BasicHttpResponse httpResponse = (BasicHttpResponse) httpclient.execute(httppost);
+		String result = TextHelper.GetText(httpResponse);	
+		return result;
 	  }
 
 }

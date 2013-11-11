@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -23,8 +24,9 @@ public class LoginActivity extends Activity {
 
 	static String baseURL = "http://learnmathsapp.apphb.com/api/";
 
-	public final static String SESSIONKEY = "com.example.myfirstapp.SESSIONKEY";
+	public static String SESSIONKEY = "com.example.myfirstapp.SESSIONKEY";
 	private String sessionKeyRecieved = "";
+	private String errorMessage = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -138,12 +140,24 @@ public class LoginActivity extends Activity {
 				jsonObject = new JSONObject(result);
 				sessionKeyRecieved = jsonObject.getString("sessionKey");
 			} catch (JSONException e) {
+				try {
+					jsonObject = new JSONObject(result);
+					errorMessage = jsonObject.getString("Message");
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				}				
 				e.printStackTrace();
 			}
 			
-			Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
-			intent.putExtra(SESSIONKEY, sessionKeyRecieved);
-			startActivity(intent);
+			if (errorMessage.length() > 0) {
+				TextView errorTextView = (TextView) findViewById(R.id.errorTextView);
+				errorTextView.setText(errorMessage);
+			}
+			else {
+				Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+				intent.putExtra(SESSIONKEY, sessionKeyRecieved);
+				startActivity(intent);
+			}
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package com.vkv.learnmaths;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,19 +25,17 @@ import android.widget.TextView;
 
 public class ProfileActivity extends Activity {
 
-	public final static String RECORDID = "com.example.myfirstapp.RECORDID";
-	public final static String USERSESSIONKEY = "com.example.myfirstapp.USERSESSIONKEY";
+	public static String RECORDID = "com.example.myfirstapp.RECORDID";
 	
 	static String baseURL = "http://learnmathsapp.apphb.com/api/";
 	static String adminRole = "Admin";
 	static String doneState = "Done";
 	static String failState = "Fail";
+	private String errorMessage = "";
 	private String nameRecieved = "";
 	private String sessionKey = "";
 	private String roleRecieved = "";
 	private String levelRecieved = "";
-	
-	private ArrayList<RecordModel> userRecords = new ArrayList<RecordModel>(); 
 	
 	private TableLayout recordsTableScrollView;
 	private TextView wellcomeTextView;
@@ -58,21 +55,11 @@ public class ProfileActivity extends Activity {
 		adminButton = (Button) findViewById(R.id.adminButton);
 		nextCategoryButton = (Button) findViewById(R.id.nextCategoryButton);
 
-		//LoginActivity || ProfileActivity || QuestActivity || AdminActivity
 		Intent intent = getIntent();
 		sessionKey = intent.getStringExtra(LoginActivity.SESSIONKEY);
 		
 		new GetInfoAsyncTask().execute(baseURL + "users/info", sessionKey);
-		
-		JSONObject model = new JSONObject();
-		try {
-			model.put("level", levelRecieved);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-		String data = model.toString();
-		new GetRecordsAsyncTask().execute(baseURL + "records/list", data, sessionKey);
+		new GetRecordsAsyncTask().execute(baseURL + "records/list", sessionKey);
 	}
 
 	@Override
@@ -114,7 +101,7 @@ public class ProfileActivity extends Activity {
 			
 			wellcomeTextView.setText("Hello, " + nameRecieved);
 			levelTextView.setText("Current Level: " + levelRecieved);		
-			if (roleRecieved == adminRole) {
+			if (roleRecieved.equalsIgnoreCase(adminRole)) {
 				adminButton.setVisibility(View.VISIBLE);
 			}
 		}
@@ -127,7 +114,12 @@ public class ProfileActivity extends Activity {
 			String result = "";		
 			try {
 				result = RequestHelper.GetBySessionKey(args);
-			} catch (IllegalStateException e) {
+			} 
+/*			catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} */
+			catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -139,8 +131,7 @@ public class ProfileActivity extends Activity {
 		}
 		
 		protected void onPostExecute(String result){
-			Log.v("out ", result);
-			
+			Log.v("out ", result);			
 			JSONArray recordsArray;
 			try {
 				recordsArray = new JSONArray(result);
@@ -149,15 +140,13 @@ public class ProfileActivity extends Activity {
 		             String category = recordObject.getString("category");
 		             String cover = recordObject.getString("cover");
 		             int id = recordObject.getInt("id");             
-		             if (cover == failState) {
+		             if (cover.equalsIgnoreCase(failState)) {
 		            	 nextCategoryButton.setVisibility(View.INVISIBLE);
 		 			}
 		             
 		             RecordModel recordModel = new RecordModel(category, cover, id);
-		             userRecords.add(recordModel);
 		             insertRecordRows(recordModel);
 		        }
-
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -181,9 +170,9 @@ public class ProfileActivity extends Activity {
 			return null;
 		}
 		
-		protected void onPostExecute(String arg){
-			
+		protected void onPostExecute(String arg){		
 			Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+			//LoginActivity.SESSIONKEY = null;
 			startActivity(intent);
 		}
 
@@ -193,8 +182,9 @@ public class ProfileActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... args) {
+			String result = "";
 			try {
-				RequestHelper.PutBySessionKey(args);
+				result = RequestHelper.PutBySessionKey(args);
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -203,15 +193,30 @@ public class ProfileActivity extends Activity {
 				e.printStackTrace();
 			}
 			
-			return null;
+			return result;
 		}
 		
-		protected void onPostExecute(String arg){
+		protected void onPostExecute(String result){
+			Log.v("out ", result);
+			JSONObject jsonObject;
+			try {
+				jsonObject = new JSONObject(result);
+				errorMessage = jsonObject.getString("Message");
+			} catch (JSONException e) {	
+				errorMessage = "";
+				e.printStackTrace();
+			}
 			
-			Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
-			startActivity(intent);
+			if (errorMessage.length() > 0) {
+				TextView errorLevelTextView = (TextView) findViewById(R.id.errorLevelTextView);
+				errorLevelTextView.setText(errorMessage);
+			}
+			else {
+				Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
+				intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
+				startActivity(intent);
+			}
 		}
-
 	}
 	
 	public class PostRecordAsyncTask extends AsyncTask<String, String, String> {
@@ -243,7 +248,7 @@ public class ProfileActivity extends Activity {
 				e.printStackTrace();
 			}
 			
-			if (recordId == null) {
+			if (recordId.equalsIgnoreCase("null")) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
 				builder.setTitle(R.string.next_level_title);
 				builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
@@ -261,7 +266,7 @@ public class ProfileActivity extends Activity {
 			else {
 				Intent intent = new Intent(ProfileActivity.this, QuestActivity.class);
 				intent.putExtra(RECORDID, recordId);
-				intent.putExtra(USERSESSIONKEY, sessionKey);
+				intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
 				startActivity(intent);
 			}
 		}
@@ -278,12 +283,12 @@ public class ProfileActivity extends Activity {
 		coverTextView.setText(model.getCover());
 		Button redoButton = (Button) newRecordRow.findViewById(R.id.redoButton);
 		redoButton.setOnClickListener(getQuestActivityListener);
-		if (model.getCover() == doneState) {
-			redoButton.setVisibility(View.VISIBLE);
+		if (model.getCover().equalsIgnoreCase(doneState)) {
+			redoButton.setVisibility(View.INVISIBLE);
 		}
 		
 		TextView idTextView = (TextView) newRecordRow.findViewById(R.id.idTextView);
-		idTextView.setText(model.getId());
+		idTextView.setText(Integer.toString(model.getId()));
 		
 		recordsTableScrollView.addView(newRecordRow);
 	}
@@ -298,19 +303,27 @@ public class ProfileActivity extends Activity {
 
 			Intent intent = new Intent(ProfileActivity.this, QuestActivity.class);		
 			intent.putExtra(RECORDID, recordId);
-			intent.putExtra(USERSESSIONKEY, sessionKey);
+			intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
 			startActivity(intent);
 		}
     };
 	
 	public void startAdmin(View view){
-/*		Intent intent = new Intent(this, AdminActivity.class);
-		intent.putExtra(USERSESSIONKEY, sessionKey);
-		startActivity(intent);*/
+		Intent intent = new Intent(this, AdminActivity.class);
+		intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
+		startActivity(intent);
 	}
 	
 	public void startNextCategory(View view){
-		new PostRecordAsyncTask().execute(baseURL + "records/create", sessionKey);
+		JSONObject model = new JSONObject();
+		try {
+			model.put("level", levelRecieved);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		String data = model.toString();
+		new PostRecordAsyncTask().execute(baseURL + "records/create", data, sessionKey);
 	}
 	
 	public void startLogout(View view){

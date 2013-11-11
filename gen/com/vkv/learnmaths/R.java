@@ -25,45 +25,50 @@ public final class R {
     }
     public static final class id {
         public static final int TableLayout1=0x7f080000;
-        public static final int action_settings=0x7f08001a;
-        public static final int adminButton=0x7f08000e;
-        public static final int answerRadio0=0x7f080012;
-        public static final int answerRadio1=0x7f080013;
-        public static final int answerRadio2=0x7f080014;
-        public static final int anwersRadioGroup=0x7f080011;
-        public static final int categoryNameTextView=0x7f08000f;
-        public static final int categoryTextView=0x7f080016;
-        public static final int coverLevelTextView=0x7f080017;
-        public static final int idTextView=0x7f080018;
-        public static final int levelTextView=0x7f080009;
-        public static final int logoutButton=0x7f08000c;
+        public static final int action_settings=0x7f08001d;
+        public static final int adminButton=0x7f080011;
+        public static final int answerRadio0=0x7f080015;
+        public static final int answerRadio1=0x7f080016;
+        public static final int answerRadio2=0x7f080017;
+        public static final int anwersRadioGroup=0x7f080014;
+        public static final int categoryNameTextView=0x7f080012;
+        public static final int categoryTextView=0x7f080019;
+        public static final int coverLevelTextView=0x7f08001a;
+        public static final int errorLevelTextView=0x7f08000e;
+        public static final int errorTextView=0x7f080009;
+        public static final int idTextView=0x7f08001b;
+        public static final int levelTextView=0x7f08000b;
+        public static final int logoutButton=0x7f08000f;
         public static final int nameEditText=0x7f080004;
-        public static final int nextCategoryButton=0x7f08000d;
+        public static final int nextCategoryButton=0x7f080010;
         public static final int passwordEditText=0x7f080006;
-        public static final int questionTextView=0x7f080010;
-        public static final int quitButton=0x7f080015;
-        public static final int recordsScrollView=0x7f08000a;
-        public static final int recordsTableLayout=0x7f08000b;
-        public static final int redoButton=0x7f080019;
+        public static final int questionTextView=0x7f080013;
+        public static final int quitButton=0x7f080018;
+        public static final int recordsScrollView=0x7f08000c;
+        public static final int recordsTableLayout=0x7f08000d;
+        public static final int redoButton=0x7f08001c;
         public static final int tableRow1=0x7f080001;
         public static final int tableRow2=0x7f080003;
         public static final int tableRow3=0x7f080005;
         public static final int tableRow4=0x7f080007;
+        public static final int tableRow5=0x7f080008;
         public static final int usernameEditText=0x7f080002;
-        public static final int wellcomeTextView=0x7f080008;
+        public static final int wellcomeTextView=0x7f08000a;
     }
     public static final class layout {
-        public static final int activity_login=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_profile=0x7f030002;
-        public static final int activity_quest=0x7f030003;
-        public static final int record_row=0x7f030004;
+        public static final int activity_admin=0x7f030000;
+        public static final int activity_login=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int activity_profile=0x7f030003;
+        public static final int activity_quest=0x7f030004;
+        public static final int record_row=0x7f030005;
     }
     public static final class menu {
-        public static final int login=0x7f070000;
-        public static final int main=0x7f070001;
-        public static final int profile=0x7f070002;
-        public static final int quest=0x7f070003;
+        public static final int admin=0x7f070000;
+        public static final int login=0x7f070001;
+        public static final int main=0x7f070002;
+        public static final int profile=0x7f070003;
+        public static final int quest=0x7f070004;
     }
     public static final class string {
         public static final int action_settings=0x7f050002;
@@ -85,6 +90,7 @@ public final class R {
         public static final int next_level_title=0x7f050012;
         public static final int password_hint=0x7f05000a;
         public static final int password_word=0x7f050009;
+        public static final int title_activity_admin=0x7f050018;
         public static final int title_activity_login=0x7f050004;
         public static final int title_activity_profile=0x7f05000d;
         public static final int title_activity_quest=0x7f050016;

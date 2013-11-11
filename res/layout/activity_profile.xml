@@ -23,7 +23,7 @@
 
     <ScrollView
         android:id="@+id/recordsScrollView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -31,10 +31,19 @@
 
         <TableLayout
             android:id="@+id/recordsTableLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </TableLayout>
     </ScrollView>
+    
+    <TextView
+        android:id="@+id/errorLevelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:id="@+id/logoutButton"

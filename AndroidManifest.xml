@@ -45,6 +45,22 @@
             android:name="com.vkv.learnmaths.AdminActivity"
             android:label="@string/title_activity_admin" >
         </activity>
+        <activity
+            android:name="com.vkv.learnmaths.AddActivity"
+            android:label="@string/title_activity_add"
+            android:parentActivityName="com.vkv.learnmaths.AdminActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vkv.learnmaths.AdminActivity" />
+        </activity>
+        <activity
+            android:name="com.vkv.learnmaths.EditActivity"
+            android:label="@string/title_activity_edit"
+            android:parentActivityName="com.vkv.learnmaths.AdminActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vkv.learnmaths.AdminActivity" />
+        </activity>
     </application>
 
 </manifest>

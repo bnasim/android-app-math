@@ -114,12 +114,7 @@ public class ProfileActivity extends Activity {
 			String result = "";		
 			try {
 				result = RequestHelper.GetBySessionKey(args);
-			} 
-/*			catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} */
-			catch (IllegalStateException e) {
+			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -208,8 +203,12 @@ public class ProfileActivity extends Activity {
 			}
 			
 			if (errorMessage.length() > 0) {
-				TextView errorLevelTextView = (TextView) findViewById(R.id.errorLevelTextView);
-				errorLevelTextView.setText(errorMessage);
+				AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+				builder.setTitle(R.string.error_title);
+				builder.setPositiveButton(R.string.button_ok, null);
+				builder.setMessage(errorMessage);
+				AlertDialog theAlertDialog = builder.create();
+				theAlertDialog.show();
 			}
 			else {
 				Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);

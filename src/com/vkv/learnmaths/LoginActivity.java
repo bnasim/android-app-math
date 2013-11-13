@@ -9,12 +9,12 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -28,10 +28,19 @@ public class LoginActivity extends Activity {
 	private String sessionKeyRecieved = "";
 	private String errorMessage = "";
 	
+	private EditText usernameEditText;
+	private EditText nameEditText;
+	private EditText passwordEditText;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		usernameEditText = (EditText) findViewById(R.id.usernameEditText);
+		nameEditText = (EditText) findViewById(R.id.nameEditText);
+		passwordEditText = (EditText) findViewById(R.id.passwordEditText);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -72,9 +81,7 @@ public class LoginActivity extends Activity {
 
 	public void loginUser(View view) throws ClientProtocolException, IOException{
 
-		EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
 		String username = usernameEditText.getText().toString();
-		EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
 		String password = passwordEditText.getText().toString();
 
 		JSONObject model = new JSONObject();
@@ -93,11 +100,8 @@ public class LoginActivity extends Activity {
 
 	public void registerUser(View view) throws ClientProtocolException, IOException{
 
-		EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
 		String username = usernameEditText.getText().toString();
-		EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
 		String name = nameEditText.getText().toString();
-		EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
 		String password = passwordEditText.getText().toString();
 
 		JSONObject model = new JSONObject();
@@ -150,8 +154,12 @@ public class LoginActivity extends Activity {
 			}
 			
 			if (errorMessage.length() > 0) {
-				TextView errorTextView = (TextView) findViewById(R.id.errorTextView);
-				errorTextView.setText(errorMessage);
+				AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+				builder.setTitle(R.string.error_title);
+				builder.setPositiveButton(R.string.button_ok, null);
+				builder.setMessage(errorMessage);
+				AlertDialog theAlertDialog = builder.create();
+				theAlertDialog.show();
 			}
 			else {
 				Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);

@@ -35,15 +35,6 @@
             android:layout_height="wrap_content" >
         </TableLayout>
     </ScrollView>
-    
-    <TextView
-        android:id="@+id/errorLevelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:id="@+id/logoutButton"

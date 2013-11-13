@@ -26,5 +26,30 @@
     <string name="title_activity_quest">Questions</string>
     <string name="button_quit">Quit</string>
     <string name="title_activity_admin">Administration</string>
+    <string name="error_title">Error</string>
+    <string name="button_save">Save</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_add">Add New</string>
+    <string name="button_back">Back To Profile</string>
+    <string name="questions_word">All Questions</string>
+    <string name="question_word">Question</string>
+    <string name="question_hint">Enter Question Text</string>
+    <string name="answer_a_word">Answer A</string>
+    <string name="answer_a_hint">Enter Answer A Text</string>
+    <string name="answer_b_word">Answer B</string>
+    <string name="answer_b_hint">Enter Answer B Text</string>
+    <string name="answer_c_word">Answer C</string>
+    <string name="answer_c_hint">Enter Answer C Text</string>
+    <string name="correct_answer_word">Choose Correct Answer</string>
+    <string name="a_word">A</string>
+    <string name="b_word">B</string>
+    <string name="c_word">C</string>
+    <string name="category_word">Choose Question Category</string>
+    <string name="title_activity_add">Add Question</string>
+    <string name="title_activity_edit">Edit Question</string>
+    <string name="delete_title">Confirm!</string>
+    <string name="delete_message">Do you want to delete this question?</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
 
 </resources>

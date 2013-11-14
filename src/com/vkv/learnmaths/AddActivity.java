@@ -136,7 +136,7 @@ public class AddActivity extends Activity {
 		}
 	}
 	
-	public class PostQuestionAsyncTask extends AsyncTask<String, String, String> {
+	private class PostQuestionAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -181,7 +181,7 @@ public class AddActivity extends Activity {
 		}
 	}
 	
-	public void addQuestion(View view){
+	public void saveQuestion(View view){
 		String questionText = questionTextEditText.getText().toString();
 		String aText = aTextEditText.getText().toString();
 		String bText = bTextEditText.getText().toString();

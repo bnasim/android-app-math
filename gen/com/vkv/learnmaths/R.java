@@ -29,12 +29,13 @@ public final class R {
         public static final int aEditRadio=0x7f08001c;
         public static final int aRadio=0x7f08000c;
         public static final int aTextEditText=0x7f080004;
-        public static final int action_settings=0x7f080037;
+        public static final int action_settings=0x7f080041;
         public static final int adminButton=0x7f080029;
         public static final int answerRadio0=0x7f08002d;
         public static final int answerRadio1=0x7f08002e;
         public static final int answerRadio2=0x7f08002f;
         public static final int anwersRadioGroup=0x7f08002c;
+        public static final int anwersTimeRadioGroup=0x7f080034;
         public static final int bEditEditText=0x7f080019;
         public static final int bEditRadio=0x7f08001d;
         public static final int bRadio=0x7f08000d;
@@ -45,29 +46,34 @@ public final class R {
         public static final int cTextEditText=0x7f080008;
         public static final int categoryEditSpinner=0x7f08001f;
         public static final int categoryNameTextView=0x7f08002a;
+        public static final int categoryNameTimeTextView=0x7f080032;
         public static final int categorySpinner=0x7f080011;
-        public static final int categoryTextView=0x7f080034;
+        public static final int categoryTextView=0x7f08003e;
         public static final int correctAnswerRadioGroup=0x7f08000b;
         public static final int correctEditRadioGroup=0x7f08001b;
-        public static final int coverLevelTextView=0x7f080035;
-        public static final int idTextView=0x7f080033;
+        public static final int coverLevelTextView=0x7f08003f;
+        public static final int idTextView=0x7f08003d;
         public static final int levelTextView=0x7f080024;
         public static final int logoutButton=0x7f080027;
         public static final int nameEditText=0x7f080021;
+        public static final int nextButton=0x7f080039;
         public static final int nextCategoryButton=0x7f080028;
+        public static final int numberAnswersTextView=0x7f080030;
         public static final int passwordEditText=0x7f080022;
+        public static final int previousButton=0x7f080038;
         public static final int qIdTextView=0x7f080016;
-        public static final int qcategoryTextView=0x7f080031;
-        public static final int qtextTextView=0x7f080032;
+        public static final int qcategoryTextView=0x7f08003b;
+        public static final int qtextTextView=0x7f08003c;
         public static final int questionEditEditText=0x7f080017;
         public static final int questionTextEditText=0x7f080002;
         public static final int questionTextView=0x7f08002b;
+        public static final int questionTimeTextView=0x7f080033;
         public static final int questionsListView=0x7f080014;
         public static final int questionsTextView=0x7f080013;
-        public static final int quitButton=0x7f080030;
+        public static final int quitButton=0x7f080031;
         public static final int recordsScrollView=0x7f080025;
         public static final int recordsTableLayout=0x7f080026;
-        public static final int redoButton=0x7f080036;
+        public static final int redoButton=0x7f080040;
         public static final int tableRow0=0x7f080015;
         public static final int tableRow1=0x7f080001;
         public static final int tableRow2=0x7f080003;
@@ -78,6 +84,10 @@ public final class R {
         public static final int tableRow7=0x7f08000f;
         public static final int tableRow8=0x7f080010;
         public static final int tableRow9=0x7f080012;
+        public static final int timeRadioA=0x7f080035;
+        public static final int timeRadioB=0x7f080036;
+        public static final int timeRadioC=0x7f080037;
+        public static final int timeTextView=0x7f08003a;
         public static final int usernameEditText=0x7f080020;
         public static final int wellcomeTextView=0x7f080023;
     }
@@ -89,8 +99,9 @@ public final class R {
         public static final int activity_main=0x7f030004;
         public static final int activity_profile=0x7f030005;
         public static final int activity_quest=0x7f030006;
-        public static final int question_row=0x7f030007;
-        public static final int record_row=0x7f030008;
+        public static final int activity_time=0x7f030007;
+        public static final int question_row=0x7f030008;
+        public static final int record_row=0x7f030009;
     }
     public static final class menu {
         public static final int add=0x7f070000;
@@ -100,6 +111,7 @@ public final class R {
         public static final int main=0x7f070004;
         public static final int profile=0x7f070005;
         public static final int quest=0x7f070006;
+        public static final int time=0x7f070007;
     }
     public static final class string {
         public static final int a_word=0x7f050028;
@@ -119,14 +131,18 @@ public final class R {
         public static final int button_delete=0x7f05001b;
         public static final int button_login=0x7f05000c;
         public static final int button_logout=0x7f050011;
+        public static final int button_next=0x7f050034;
         public static final int button_nextCategory=0x7f050010;
         public static final int button_no=0x7f050031;
         public static final int button_ok=0x7f050014;
+        public static final int button_one_choise=0x7f050038;
+        public static final int button_previous=0x7f050033;
         public static final int button_quit=0x7f050017;
         public static final int button_redo=0x7f05000f;
         public static final int button_register=0x7f05000b;
         public static final int button_save=0x7f05001a;
         public static final int button_start=0x7f050003;
+        public static final int button_time=0x7f050037;
         public static final int button_yes=0x7f050030;
         public static final int c_word=0x7f05002a;
         public static final int category_word=0x7f05002b;
@@ -141,6 +157,8 @@ public final class R {
         public static final int next_level_title=0x7f050012;
         public static final int password_hint=0x7f05000a;
         public static final int password_word=0x7f050009;
+        public static final int quest_choise_message=0x7f050036;
+        public static final int quest_choise_title=0x7f050035;
         public static final int question_hint=0x7f050020;
         public static final int question_word=0x7f05001f;
         public static final int questions_word=0x7f05001e;
@@ -150,6 +168,7 @@ public final class R {
         public static final int title_activity_login=0x7f050004;
         public static final int title_activity_profile=0x7f05000d;
         public static final int title_activity_quest=0x7f050016;
+        public static final int title_activity_time=0x7f050032;
         public static final int username_hint=0x7f050008;
         public static final int username_word=0x7f050007;
     }

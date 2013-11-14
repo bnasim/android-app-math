@@ -5,6 +5,13 @@ public class QuestionModel {
 	private String category = "";
 	private String text = "";
 	private int id = 0;
+	private boolean isLoaded = false;
+	public boolean isLoaded() {
+		return isLoaded;
+	}
+	public void setLoaded(boolean isLoaded) {
+		this.isLoaded = isLoaded;
+	}
 	public String getCategory() {
 		return category;
 	}
@@ -28,5 +35,6 @@ public class QuestionModel {
 		this.category = category;
 		this.text = text;
 		this.id = id;
+		this.isLoaded = false;
 	}
 }

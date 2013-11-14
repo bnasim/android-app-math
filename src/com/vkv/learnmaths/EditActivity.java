@@ -148,7 +148,7 @@ public class EditActivity extends Activity {
 		}
 	}
 	
-	public class GetEditQuestionAsyncTask extends AsyncTask<String, String, String> {
+	private class GetEditQuestionAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -186,19 +186,19 @@ public class EditActivity extends Activity {
 			aEditEditText.setText(atext);
 			bEditEditText.setText(btext);
 			cEditEditText.setText(ctext);
-			if(correct == "A") {
+			if(correct.equalsIgnoreCase("A")) {
 				aEditRadio.setChecked(true);
 			}
-			else if (correct == "B") {
+			else if (correct.equalsIgnoreCase("B")) {
 				bEditRadio.setChecked(true);
 			}
-			else if (correct == "C") {
+			else if (correct.equalsIgnoreCase("C")) {
 				cEditRadio.setChecked(true);
 			}
 		}
 	}
 	
-	public class PostEditQuestionAsyncTask extends AsyncTask<String, String, String> {
+	private class PostEditQuestionAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -281,7 +281,7 @@ public class EditActivity extends Activity {
 		new PostEditQuestionAsyncTask().execute(baseURL + "questions/edit", data, sessionKey);
 	}
 	
-	public class PutDeleteQuestionAsyncTask extends AsyncTask<String, String, String> {
+	private class PutDeleteQuestionAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {

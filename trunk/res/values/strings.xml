@@ -23,7 +23,7 @@
     <string name="next_level_message">You finished all categories in this level. Go to the next!</string>
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
-    <string name="title_activity_quest">Questions</string>
+    <string name="title_activity_quest">One Choise Quests</string>
     <string name="button_quit">Quit</string>
     <string name="title_activity_admin">Administration</string>
     <string name="error_title">Error</string>
@@ -51,5 +51,12 @@
     <string name="delete_message">Do you want to delete this question?</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
+    <string name="title_activity_time">Time Quest</string>
+    <string name="button_previous">Previous</string>
+    <string name="button_next">Next</string>
+    <string name="quest_choise_title">Choose!</string>
+    <string name="quest_choise_message">What kind of quest do you prefer?</string>
+    <string name="button_time">Time</string>
+    <string name="button_one_choise">One Choise</string>
 
 </resources>

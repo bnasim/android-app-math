@@ -61,6 +61,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vkv.learnmaths.AdminActivity" />
         </activity>
+        <activity
+            android:name="com.vkv.learnmaths.TimeActivity"
+            android:label="@string/title_activity_time" >
+        </activity>
     </application>
 
 </manifest>

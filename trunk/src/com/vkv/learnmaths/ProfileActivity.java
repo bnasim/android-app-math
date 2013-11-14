@@ -34,6 +34,7 @@ public class ProfileActivity extends Activity {
 	private String errorMessage = "";
 	private String nameRecieved = "";
 	private String sessionKey = "";
+	private String recordId = "";
 	private String roleRecieved = "";
 	private String levelRecieved = "";
 	
@@ -69,7 +70,7 @@ public class ProfileActivity extends Activity {
 		return true;
 	}
 	
-	public class GetInfoAsyncTask extends AsyncTask<String, String, String> {
+	private class GetInfoAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -107,7 +108,7 @@ public class ProfileActivity extends Activity {
 		}
 	}
 	
-	public class GetRecordsAsyncTask extends AsyncTask<String, String, String> {
+	private class GetRecordsAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -148,7 +149,7 @@ public class ProfileActivity extends Activity {
 		}
 	}
 	
-	public class LogoutAsyncTask extends AsyncTask<String, String, String> {
+	private class LogoutAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -173,7 +174,7 @@ public class ProfileActivity extends Activity {
 
 	}
 	
-	public class LevelAsyncTask extends AsyncTask<String, String, String> {
+	private class LevelAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -218,7 +219,7 @@ public class ProfileActivity extends Activity {
 		}
 	}
 	
-	public class PostRecordAsyncTask extends AsyncTask<String, String, String> {
+	private class PostRecordAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -238,7 +239,7 @@ public class ProfileActivity extends Activity {
 		
 		protected void onPostExecute(String result){
 			Log.v("out ", result);
-			String recordId = null;
+			recordId = null;
 			JSONObject jsonObject;
 			try {
 				jsonObject = new JSONObject(result);
@@ -263,16 +264,37 @@ public class ProfileActivity extends Activity {
 				theAlertDialog.show();
 			}
 			else {
-				Intent intent = new Intent(ProfileActivity.this, QuestActivity.class);
-				intent.putExtra(RECORDID, recordId);
-				intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
-				startActivity(intent);
+				AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+				builder.setTitle(R.string.quest_choise_title);
+				builder.setPositiveButton(R.string.button_one_choise, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(ProfileActivity.this, QuestActivity.class);
+						intent.putExtra(RECORDID, recordId);
+						intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
+						startActivity(intent);
+					}
+				});
+				
+				builder.setNegativeButton(R.string.button_time, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(ProfileActivity.this, TimeActivity.class);
+						intent.putExtra(RECORDID, recordId);
+						intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
+						startActivity(intent);
+					}
+				});
+				
+				builder.setMessage(R.string.quest_choise_message);
+				AlertDialog theAlertDialog = builder.create();
+				theAlertDialog.show();
 			}
 		}
 
 	}
 	
-	public void insertRecordRows(RecordModel model){
+	private void insertRecordRows(RecordModel model){
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 		View newRecordRow = inflater.inflate(R.layout.record_row, null);
@@ -298,12 +320,33 @@ public class ProfileActivity extends Activity {
 		public void onClick(View v) {
 			TableRow tableRow = (TableRow) v.getParent();
 			TextView recordIdTextView = (TextView) tableRow.findViewById(R.id.idTextView);
-			String recordId = recordIdTextView.getText().toString();
+			recordId = recordIdTextView.getText().toString();
 
-			Intent intent = new Intent(ProfileActivity.this, QuestActivity.class);		
-			intent.putExtra(RECORDID, recordId);
-			intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
-			startActivity(intent);
+			AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+			builder.setTitle(R.string.quest_choise_title);
+			builder.setPositiveButton(R.string.button_one_choise, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(ProfileActivity.this, QuestActivity.class);
+					intent.putExtra(RECORDID, recordId);
+					intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
+					startActivity(intent);
+				}
+			});
+			
+			builder.setNegativeButton(R.string.button_time, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(ProfileActivity.this, TimeActivity.class);
+					intent.putExtra(RECORDID, recordId);
+					intent.putExtra(LoginActivity.SESSIONKEY, sessionKey);
+					startActivity(intent);
+				}
+			});
+			
+			builder.setMessage(R.string.quest_choise_message);
+			AlertDialog theAlertDialog = builder.create();
+			theAlertDialog.show();
 		}
     };
 	

@@ -119,7 +119,7 @@ public class LoginActivity extends Activity {
 		new PostAsyncTask().execute(baseURL + "users/register", data);
 	}
 	
-	public class PostAsyncTask extends AsyncTask<String, String, String> {
+	private class PostAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -143,6 +143,7 @@ public class LoginActivity extends Activity {
 			try {
 				jsonObject = new JSONObject(result);
 				sessionKeyRecieved = jsonObject.getString("sessionKey");
+				errorMessage = "";
 			} catch (JSONException e) {
 				try {
 					jsonObject = new JSONObject(result);

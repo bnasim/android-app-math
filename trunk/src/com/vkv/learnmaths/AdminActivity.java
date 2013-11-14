@@ -64,7 +64,7 @@ public class AdminActivity extends Activity {
 		return true;
 	}
 	
-	public class GetQuestionsAsyncTask extends AsyncTask<String, String, String> {
+	private class GetQuestionsAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {

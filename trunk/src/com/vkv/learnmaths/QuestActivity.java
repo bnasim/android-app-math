@@ -23,8 +23,6 @@ import android.widget.TextView;
 
 public class QuestActivity extends Activity {
 	
-	//public final static String QUESTSESSIONKEY = "com.example.myfirstapp.QUESTSESSIONKEY";
-	
 	static String baseURL = "http://learnmathsapp.apphb.com/api/";
 	static int answerScore = 20;
 	private int score = 0;
@@ -37,6 +35,7 @@ public class QuestActivity extends Activity {
 	
 	private TextView categoryNameTextView;
 	private TextView questionTextView;
+	private TextView numberAnswersTextView;
 	private RadioGroup anwersRadioGroup;
 	
 	private ArrayList<RadioButton> answerRadioButtons = new ArrayList<RadioButton>();
@@ -48,6 +47,7 @@ public class QuestActivity extends Activity {
 		
 		categoryNameTextView = (TextView) findViewById(R.id.categoryNameTextView);
 		questionTextView = (TextView) findViewById(R.id.questionTextView);
+		numberAnswersTextView = (TextView) findViewById(R.id.numberAnswersTextView);
 		anwersRadioGroup = (RadioGroup) findViewById(R.id.anwersRadioGroup);
 		anwersRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
         {
@@ -87,7 +87,7 @@ public class QuestActivity extends Activity {
 		return true;
 	}
 	
-	public class GetQuestionsAsyncTask extends AsyncTask<String, String, String> {
+	private class GetQuestionsAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -115,7 +115,7 @@ public class QuestActivity extends Activity {
 		             JSONObject questionObject = questionsArray.getJSONObject(index);
 		             String category = questionObject.getString("category");
 		             String text = questionObject.getString("text");
-		             int id = questionObject.getInt("id");             		             
+		             int id = questionObject.getInt("id");
 		             QuestionModel questionModel = new QuestionModel(category, text, id);
 		             questionList.add(questionModel);
 		        }
@@ -128,7 +128,7 @@ public class QuestActivity extends Activity {
 		}
 	}
 	
-	public class GetAnswersAsyncTask extends AsyncTask<String, String, String> {
+	private class GetAnswersAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -167,7 +167,7 @@ public class QuestActivity extends Activity {
 		}
 	}
 	
-	public class UpdateCoverAsyncTask extends AsyncTask<String, String, String> {
+	private class UpdateCoverAsyncTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... args) {
@@ -213,7 +213,7 @@ public class QuestActivity extends Activity {
 
 	}
 	
-	public void insertQuestion(int index){
+	private void insertQuestion(int index){
 		if (questionList.size() <= index) {
 			String data = ParseData();
 			new UpdateCoverAsyncTask().execute(baseURL + "records/cover", data, sessionKey);
@@ -221,6 +221,7 @@ public class QuestActivity extends Activity {
 		else {
 			QuestionModel model = questionList.get(index);
 			questionTextView.setText(model.getText());
+			numberAnswersTextView.setText("Number Correct Answers: " + score / answerScore);
 			new GetAnswersAsyncTask().execute(baseURL + "answers/list/" + model.getId(), sessionKey);
 		}
 	}
@@ -230,7 +231,7 @@ public class QuestActivity extends Activity {
 		new UpdateCoverAsyncTask().execute(baseURL + "records/cover", data, sessionKey);
 	}
 	
-	public String ParseData(){
+	private String ParseData(){
 		JSONObject model = new JSONObject();
 		try {
 			model.put("id", Integer.parseInt(recordId));

@@ -58,7 +58,7 @@ public class AddActivity extends Activity {
 		categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
 		
 		// Show the Up button in the action bar.
-		setupActionBar();
+		//setupActionBar();
 		
 		new GetCategoriesAsyncTask().execute(baseURL + "categories/all", sessionKey);
 	}

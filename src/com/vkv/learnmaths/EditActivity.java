@@ -69,7 +69,7 @@ public class EditActivity extends Activity {
 		categoryEditSpinner = (Spinner) findViewById(R.id.categoryEditSpinner);
 		
 		// Show the Up button in the action bar.
-		setupActionBar();
+		//setupActionBar();
 		
 		new GetEditQuestionAsyncTask().execute(baseURL + "questions/byid/" + questionId, sessionKey);
 		new GetCategoriesAsyncTask().execute(baseURL + "categories/all", sessionKey);

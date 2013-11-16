@@ -19,7 +19,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class TimeActivity extends Activity {
 	
@@ -36,13 +38,14 @@ public class TimeActivity extends Activity {
 	private TextView categoryNameTimeTextView;
 	private TextView questionTimeTextView;
 	private TextView timeTextView;
+	private RadioGroup anwersTimeRadioGroup;
 	private RadioButton timeRadioA;
 	private RadioButton timeRadioB;
 	private RadioButton timeRadioC;
 	private Button nextButton;
 	private Button previousButton;
 	private CountDownTimer countDownTimer;
-	private final long startTime = 3000 * 1000;
+	private final long startTime = 60 * 1000;
 	private final long interval = 1 * 1000;
 
 	@Override
@@ -56,6 +59,23 @@ public class TimeActivity extends Activity {
 		nextButton = (Button) findViewById(R.id.nextButton);
 		previousButton = (Button) findViewById(R.id.previousButton);
 		countDownTimer = new MyCountDownTimer(startTime, interval);
+		
+		anwersTimeRadioGroup = (RadioGroup) findViewById(R.id.anwersTimeRadioGroup);
+		anwersTimeRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            	QuestionFullModel model = loadedQuestionList.get(currentQuestion);
+            	if(checkedId == R.id.timeRadioA) {
+            		model.setChecked("A");
+            	}
+        		else if(checkedId == R.id.timeRadioB){
+        			model.setChecked("B");
+        		}
+        		else if(checkedId == R.id.timeRadioC){
+        			model.setChecked("C");
+        		}
+            }
+        });
 	
 		timeRadioA = (RadioButton) findViewById(R.id.timeRadioA);
 		timeRadioB = (RadioButton) findViewById(R.id.timeRadioB);
@@ -249,9 +269,6 @@ public class TimeActivity extends Activity {
 		timeRadioA.setText(model.getAtext());
 		timeRadioB.setText(model.getBtext());
 		timeRadioC.setText(model.getCtext());
-		timeRadioA.setChecked(false);
-		timeRadioB.setChecked(false);
-		timeRadioC.setChecked(false);
 		if(model.getChecked().equalsIgnoreCase("A")) {
 			timeRadioA.setChecked(true);
 		}
@@ -264,39 +281,13 @@ public class TimeActivity extends Activity {
 	}
 	
 	public void nextQuestion(View view){
-		QuestionFullModel model = loadedQuestionList.get(currentQuestion);
-		if(timeRadioA.isChecked()){
-			model.setChecked("A");
-		}
-		else if(timeRadioB.isChecked()){
-			model.setChecked("B");
-		}
-		else if(timeRadioC.isChecked()){
-			model.setChecked("C");
-		}
-		else {
-			model.setChecked("");
-		}
-		
+		anwersTimeRadioGroup.clearCheck();		
 		currentQuestion++;
 		loadQuestion(currentQuestion);
 	}
 	
 	public void previousQuestion(View view){
-		QuestionFullModel model = loadedQuestionList.get(currentQuestion);
-		if(timeRadioA.isChecked()){
-			model.setChecked("A");
-		}
-		else if(timeRadioB.isChecked()){
-			model.setChecked("B");
-		}
-		else if(timeRadioC.isChecked()){
-			model.setChecked("C");
-		}
-		else {
-			model.setChecked("");
-		}
-		
+		anwersTimeRadioGroup.clearCheck();
 		currentQuestion--;
 		loadQuestion(currentQuestion);
 	}

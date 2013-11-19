@@ -20,16 +20,13 @@ public class TextHelper {
 	        sb.append(line);
 	      }
 	      text = sb.toString();
-	    } catch (Exception ex) {
-
-	    } finally {
+	    } catch (Exception ex) {} 
+	    finally {
 	      try {
-
 	    	  inputStream.close();
-	      } catch (Exception ex) {
-	      }
+	      } catch (Exception ex) {}
 	    }
+	    
 	    return text;
 	  }
-
 }

@@ -7,11 +7,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
@@ -45,6 +50,7 @@ public class TimeActivity extends Activity {
 	private Button nextButton;
 	private Button previousButton;
 	private CountDownTimer countDownTimer;
+	MediaPlayer mMediaPlayer;
 	private final long startTime = 60 * 1000;
 	private final long interval = 1 * 1000;
 
@@ -59,6 +65,7 @@ public class TimeActivity extends Activity {
 		nextButton = (Button) findViewById(R.id.nextButton);
 		previousButton = (Button) findViewById(R.id.previousButton);
 		countDownTimer = new MyCountDownTimer(startTime, interval);
+		mMediaPlayer = new MediaPlayer();
 		
 		anwersTimeRadioGroup = (RadioGroup) findViewById(R.id.anwersTimeRadioGroup);
 		anwersTimeRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
@@ -96,20 +103,51 @@ public class TimeActivity extends Activity {
 	}
 	
 	private class MyCountDownTimer extends CountDownTimer {
-		  public MyCountDownTimer(long startTime, long interval) {
-		   super(startTime, interval);
-		  }
+		public MyCountDownTimer(long startTime, long interval) {
+			super(startTime, interval);
+		}
 
-		  @Override
-		  public void onFinish() {
-			  String data = ParseData();
-			  new UpdateCoverAsyncTask().execute(baseURL + "records/cover", data, sessionKey);
-		  }
+		@Override
+		public void onFinish() {
+			mMediaPlayer.stop();
+			String data = ParseData();
+			new UpdateCoverAsyncTask().execute(baseURL + "records/cover", data,
+					sessionKey);
+		}
 
-		  @Override
-		  public void onTick(long millisUntilFinished) {
-			  timeTextView.setText("Seconds left: " + millisUntilFinished / 1000);
-		  }
+		@Override
+		public void onTick(long millisUntilFinished) {
+			timeTextView.setText("Seconds left: " + millisUntilFinished / 1000);
+			if (millisUntilFinished / 1000 == 3) {
+				Uri soundUri = RingtoneManager
+						.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+				try {
+					mMediaPlayer.setDataSource(getApplicationContext(),
+							soundUri);
+					final AudioManager audioManager = (AudioManager) getApplicationContext()
+							.getSystemService(Context.AUDIO_SERVICE);
+					if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+						mMediaPlayer
+								.setAudioStreamType(AudioManager.STREAM_ALARM);
+						mMediaPlayer.setLooping(true);
+						mMediaPlayer.prepare();
+						mMediaPlayer.start();
+					}
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	private class GetQuestionsAsyncTask extends AsyncTask<String, String, String> {
